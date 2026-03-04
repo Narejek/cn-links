@@ -1,6 +1,7 @@
 import { acbuyMarketplaceStrings } from '../data/acbuy';
 import { gtbuyMarketplaceStrings } from '../data/gtbuy';
 import { hoobuyMarketplaceStrings } from '../data/hoobuy';
+import { litbuyMarketplaceStrings } from '../data/litbuy';
 import { lovegobuyMarketplaceStrings } from '../data/lovegobuy';
 import { oopbuyMarketplaceStrings } from '../data/oopbuy';
 import { panglobalbuyMarketplaceStrings } from '../data/panglobalbuy';
@@ -495,6 +496,20 @@ export function generateAgentLink(
       urlParams.set('memberId', referral);
     }
     return new URL(`https://www.fishgoo.com/#/product?${urlParams.toString()}`);
+  }
+
+  // Litbuy
+  if (agent === 'litbuy') {
+    // https://litbuy.com/product/0/858275512438&inviteCode=6EZJ7TR67
+    const mpStr = litbuyMarketplaceStrings.get(marketplace);
+    if (!mpStr) {
+      throw new Error('Unsupported marketplace for Litbuy');
+    }
+    const baseUrl = `https://litbuy.com/product/${mpStr}/${id}`;
+    if (referral) {
+      return new URL(`${baseUrl}&inviteCode=${referral}`);
+    }
+    return new URL(baseUrl);
   }
 
   // Raw Links

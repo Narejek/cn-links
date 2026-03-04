@@ -14,6 +14,7 @@ import { decodeHoobuy } from './decode/decodeHoobuy';
 import { decodeHubbuyCn } from './decode/decodeHubbuyCn';
 import { decodeJoyagoo } from './decode/decodeJoyagoo';
 import { decodeKameymall } from './decode/decodeKameymall';
+import { decodeLitbuy } from './decode/decodeLitbuy';
 import { decodeLovegobuy } from './decode/decodeLoveGoBuy';
 import { decodeOopbuy } from './decode/decodeOopbuy';
 import { decodeOrientdig } from './decode/decodeOrientdig';
@@ -128,6 +129,10 @@ export function extractRawLink(href: AgentURL): RawURL {
 
     if (agent === 'gtbuy') {
       return decodeGtbuy(link);
+    }
+
+    if (agent === 'litbuy') {
+      return decodeLitbuy(link);
     }
 
     throw new Error('Agent does not have a decoder. This may be expected.');

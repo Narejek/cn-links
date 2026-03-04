@@ -19,7 +19,7 @@ export function isAgentLink(href: string | URL): boolean {
   }
 
   // Check if the URL protocol is valid
-  if (!['http:', 'https:'].includes(link.protocol)) {
+  if (['http:', 'https:'].indexOf(link.protocol) === -1) {
     return false;
   }
 
@@ -122,6 +122,9 @@ export function isAgentLink(href: string | URL): boolean {
     if (!link.href.includes('/#/product?')) {
       return false;
     }
+  }
+  if (agent === 'litbuy' && !link.pathname.startsWith('/product')) {
+    return false;
   }
 
   try {

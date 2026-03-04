@@ -1,5 +1,6 @@
 import { detectAgent } from '../lib/detectAgent';
 import { extractInnerParam } from '../lib/extractInnerParam';
+import type { Marketplace } from '../models';
 import type { AgentURL, RawURL } from '../models/LinkTypes';
 import { decodeAcbuy } from './decode/decodeAcbuy';
 import { decodeAllChinaBuy } from './decode/decodeAllChinaBuy';
@@ -11,6 +12,7 @@ import { decodeHagobuy } from './decode/decodeHagobuy';
 import { decodeHoobuy } from './decode/decodeHoobuy';
 import { decodeJoyabuy } from './decode/decodeJoyabuy';
 import { decodeKameymall } from './decode/decodeKameymall';
+import { decodeLitbuy } from './decode/decodeLitbuy';
 import { decodeLovegobuy } from './decode/decodeLovegobuy';
 import { decodeMulebuy } from './decode/decodeMulebuy';
 import { decodeOrientdig } from './decode/decodeOrientdig';
@@ -80,6 +82,11 @@ export function extractRawLink(href: AgentURL): RawURL {
   if (agent === 'hoobuy') {
     const { marketplace, id } = decodeHoobuy(link);
     return generateRawLink(marketplace, id);
+  }
+
+  if (agent === 'litbuy') {
+    const { marketplace, id } = decodeLitbuy(link);
+    return generateRawLink(marketplace as Marketplace, id);
   }
 
   if (agent === 'superbuy') {

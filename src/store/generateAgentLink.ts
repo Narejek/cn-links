@@ -3,6 +3,7 @@ import { allchinabuyMarketplaceStrings } from '../data/allchinabuy';
 import { cssbuyMarketplaceStrings } from '../data/cssbuy';
 import { hoobuyMarketplaceStrings } from '../data/hoobuy';
 import { kameymallMarketplaceStrings } from '../data/kameymall';
+import { litbuyMarketplaceStrings } from '../data/litbuy';
 import { pandabuyMarketplaceStrings } from '../data/pandabuy';
 import { sifubuyMarketplaceStrings } from '../data/sifubuy';
 import { usfansMarketplaceStrings } from '../data/usfans';
@@ -270,6 +271,18 @@ export function generateAgentLink(
     return new URL(
       `https://www.fishgoo.com/#/home/shopProducts?${searchParams.toString()}`
     );
+  }
+
+  if (agent === 'litbuy') {
+    const mp = litbuyMarketplaceStrings.get(marketplace);
+    if (!mp) {
+      throw new Error('Unsupported marketplace for litbuy');
+    }
+    const url = new URL(`https://litbuy.com/shop/${mp}/${id}`);
+    if (referral) {
+      url.searchParams.set('inviteCode', referral);
+    }
+    return url;
   }
 
   // Raw Links
